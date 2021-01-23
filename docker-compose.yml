@@ -2,15 +2,22 @@ version: "3.9"
 services:
   php:
     image: php:8.0.1-fpm-buster
-    command: php -S 0.0.0.0:80
     working_dir: /app
     volumes:
       - .:/app
-    ports:
-      - 80:80
   composer:
     image: composer:2.0.8
     command: install
     working_dir: /app
     volumes_from:
       - php
+  nginx:
+    image: nginx:1.19.6
+    links:
+      - php
+    ports:
+      - 80:80
+    volumes_from:
+      - php
+    volumes:
+      - ./docker/nginx/simatc.conf:/etc/nginx/conf.d/simatc.conf
