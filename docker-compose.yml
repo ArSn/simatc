@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   php:
-    image: php:8.0.1-fpm-buster
+    build: ./docker/php
     working_dir: /app
     volumes:
       - .:/app
