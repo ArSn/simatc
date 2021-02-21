@@ -5,6 +5,8 @@ services:
     working_dir: /app
     volumes:
       - .:/app
+    links:
+      - database
   composer:
     image: composer:2.0.9
     command: install
@@ -21,3 +23,10 @@ services:
       - php
     volumes:
       - ./docker/nginx/simatc.conf:/etc/nginx/conf.d/simatc.conf
+  database:
+    image: mariadb:10.5.8-focal
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: simatc
+    ports:
+      - 3306:3306
