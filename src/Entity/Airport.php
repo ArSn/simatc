@@ -51,7 +51,7 @@ class Airport
     private $cityName;
 
     /**
-     * @var \MapPoint
+     * @var MapPoint
      *
      * @ORM\ManyToOne(targetEntity="MapPoint")
      * @ORM\JoinColumns({
