@@ -19,13 +19,9 @@ class AirportTest extends IntegrationTestCase
         $airport->setName('Stuttgart');
         $airport->setCityName('Stuttgart');
 
-        $this->getEntityManager()->persist($airport);
-        $this->getEntityManager()->flush();
-    }
-
-    public function tearDown(): void
-    {
-
+        $em = $this->getEntityManager();
+        $em->persist($airport);
+        $em->flush();
     }
 
     public function testGetId()
@@ -45,7 +41,13 @@ class AirportTest extends IntegrationTestCase
 
     public function testLoadAirport()
     {
+        // todo: get rid of deprecation notice in this test
+        /** @var Airport $airport */
         $airport = $this->getRepository()->findOneBy(['name' => 'Stuttgart']);
+        $this->assertIsInt($airport->getId());
+        // todo: add assertions for automated timestamps
+        $this->assertSame('Stuttgart', $airport->getName());
+        $this->assertSame('Stuttgart', $airport->getCityName());
         var_dump($airport);
     }
 }

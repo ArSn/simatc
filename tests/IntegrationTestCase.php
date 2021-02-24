@@ -6,19 +6,33 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\Persistence\ObjectRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class IntegrationTestCase extends KernelTestCase
+abstract class IntegrationTestCase extends KernelTestCase
 {
     private ObjectManager $entityManager;
-    private ObjectRepository $repository;
+    private ?ObjectRepository $repository = null;
     private string $sutClassName;
 
     public function setUp(): void
     {
+        parent::setUp();
         self::bootKernel();
 
         $this->entityManager = static::$kernel->getContainer()
             ->get('doctrine')
             ->getManager();
+    }
+
+    public function tearDown(): void
+    {
+        $em = $this->entityManager;
+
+        foreach ($this->getRepository()->findAll() as $object) {
+            $em->remove($object);
+        }
+        $em->flush();
+        $em->clear();
+
+        parent::tearDown();
     }
 
     protected function initialize(string $sutClassName): void
