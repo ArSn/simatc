@@ -19,9 +19,7 @@ class AirportTest extends IntegrationTestCase
         $airport->setName('Stuttgart');
         $airport->setCityName('Stuttgart');
 
-        $em = $this->getEntityManager();
-        $em->persist($airport);
-        $em->flush();
+        $this->persist($airport);
     }
 
     public function testGetId()

@@ -45,6 +45,13 @@ abstract class IntegrationTestCase extends KernelTestCase
         return $this->entityManager;
     }
 
+    protected function persist(object $object): void
+    {
+        $em = $this->getEntityManager();
+        $em->persist($object);
+        $em->flush();
+    }
+
     private function guardAgainstEmptyClassName(): void
     {
         if (empty($this->sutClassName)) {
