@@ -7,12 +7,6 @@ services:
       - .:/app
     links:
       - database
-  composer:
-    image: composer:2.0.9
-    command: install
-    working_dir: /app
-    volumes_from:
-      - php
   nginx:
     image: nginx:1.19.6
     links:

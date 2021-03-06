@@ -1,5 +1,7 @@
 {
     "type": "project",
+    "name": "arsn/simatc",
+    "description": "",
     "license": "proprietary",
     "minimum-stability": "dev",
     "prefer-stable": true,
